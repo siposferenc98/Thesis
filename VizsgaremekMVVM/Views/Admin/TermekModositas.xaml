@@ -1,0 +1,53 @@
+﻿<Window x:Class="VizsgaremekMVVM.Views.Admin.TermekModositas"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VizsgaremekMVVM.Views.Admin" xmlns:admin="clr-namespace:VizsgaremekMVVM.ViewModels.Admin" d:DataContext="{d:DesignInstance Type=admin:TermekModositasVM}"
+        mc:Ignorable="d"
+        Title="Termék" MinHeight="400" Height="400" MinWidth="400" Width="400">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="10px"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="2">
+            <Label>Termék típusa:</Label>
+            <ComboBox SelectedIndex="{Binding KivalasztottTermek}">
+                <ComboBoxItem>Hamburger</ComboBoxItem>
+                <ComboBoxItem>Köret</ComboBoxItem>
+                <ComboBoxItem>Desszert</ComboBoxItem>
+                <ComboBoxItem>Ital</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <Label>Név:</Label>
+            <TextBox x:Name="termekNev"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="1"  Grid.Column="1">
+            <Label>Ár:</Label>
+            <TextBox x:Name="termekAr"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+            <Label>Leírás:</Label>
+            <TextBox x:Name="termekLeiras"></TextBox>
+            <CheckBox Margin="5px" Content="Aktív" HorizontalAlignment="Center" IsChecked="True" x:Name="aktivCheckBox"></CheckBox>
+        </StackPanel>
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding TermekFrissitButton}">Termék módosítása</Button>
+    </Grid>
+</Window>

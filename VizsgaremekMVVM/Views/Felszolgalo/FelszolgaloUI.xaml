@@ -1,0 +1,156 @@
+﻿<Window x:Class="VizsgaremekMVVM.Views.Felszolgalo.FelszolgaloUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VizsgaremekMVVM.Views.Felszolgalo" xmlns:felszolgalo="clr-namespace:VizsgaremekMVVM.ViewModels.Felszolgalo" d:DataContext="{d:DesignInstance Type=felszolgalo:FelszolgaloUIVM}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="Felszolgáló felület" MinHeight="650" Height="650" MinWidth="1024" Width="1024">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Height" Value="60"></Setter>
+            <Setter Property="Margin" Value="3"></Setter>
+        </Style>
+        <Style TargetType="Grid" x:Key="AsztalokGrid">
+            <Style.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionButton}" >
+                    
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="25px"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!--Felső menü-->
+        <DockPanel Grid.ColumnSpan="2">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Opciók">
+                    <MenuItem Header="Jelszó változtatás" x:Name="jelszoValtoztatMenu"></MenuItem>
+                    <MenuItem Header="Kijelentkezés" x:Name="kijelentkezesMenu"></MenuItem>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <!--Labelök-->
+        <Label Grid.Row="1">Rendelés felvétel</Label>
+        <Label Grid.Row="1" Grid.Column="1">Rendelések</Label>
+        <!--Rendelések listbox-->
+        <ListBox Grid.Row="2" Grid.Column="2" Margin="5" ItemsSource="{Binding Rendelesek}" SelectedItem="{Binding KivalasztottRendeles}" HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="#f7f7f7">
+                        <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="10" Fill="{Binding Brush}"></Rectangle>
+                            <StackPanel Margin="2">
+                                <TextBlock FontSize="18" FontWeight="DemiBold" Text="{Binding Asztal,StringFormat='Asztal: {0}'}" ></TextBlock>
+                                <TextBlock Text="{Binding Allapot}"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+        <!--Kész rendelések vezérlő-->
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding RendelesTorleseButton}" >Törlés</Button>
+            <Button Grid.Column="1" Command="{Binding RendelesReszletekButton}">Részletek</Button>
+            <Button Grid.Column="2" Command="{Binding RendelesFizetesreVarButton}">Fizetésre vár</Button>
+            <Button Grid.Column="3" Command="{Binding RendelesFizetveButton}">Fizetve</Button>
+        </Grid>
+        <!--Foglalás/tétel-->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!--<Button Grid.ColumnSpan="2" Height="20px" VerticalAlignment="Top">Frissítés</Button>-->
+            <!--Foglalás asztal kiválasztása, vendég checkbox, rendelés felvétele-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Foglalás:</Label>
+                    <ComboBox MinWidth="50" MaxWidth="100" IsEnabled="{Binding FoglalasIsEnabled}" ItemsSource="{Binding Foglalasok}" SelectedItem="{Binding KivalasztottFoglalas}"></ComboBox>
+                </StackPanel>
+
+                <CheckBox Grid.Row="1" IsChecked="{Binding BeteroVendeg}" HorizontalAlignment="Center">Betérő vendég</CheckBox>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <Label>Asztal:</Label>
+                    <ComboBox ItemsSource="{Binding Asztalok}" SelectedValue="{Binding KivalasztottAsztal}" Width="50px"></ComboBox>
+                </StackPanel>
+            </Grid>
+            <Button Grid.Column="1" Command="{Binding RendelesFelveteleButton}">Rendelés felvétele</Button>
+
+            <Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding TetelFelvetelButton}">Tétel hozzáadása</Button>
+
+            <Grid Grid.Row="2" Grid.ColumnSpan="2" x:Name="AsztalokGrid" Style="{StaticResource AsztalokGrid}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Tag="1" Command="{Binding AsztalTetelekButton}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">1</Button>
+                <Button Grid.Row="1" Tag="2" Command="{Binding AsztalTetelekButton}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">2</Button>
+                <Button Grid.Column="1" Tag="3" Command="{Binding AsztalTetelekButton}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">3</Button>
+                <Button Grid.Row="1" Grid.Column="1" Tag="4" Command="{Binding AsztalTetelekButton}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">4</Button>
+                <Button Grid.Column="2" Tag="5" Command="{Binding AsztalTetelekButton}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">5</Button>
+                <Button Grid.Row="1" Grid.Column="2" Tag="6" Command="{Binding AsztalTetelekButton}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">6</Button>
+                <Button Grid.Column="3" Tag="7" Command="{Binding AsztalTetelekButton}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">7</Button>
+                <Button Grid.Row="1" Grid.Column="3" Tag="8" Command="{Binding AsztalTetelekButton}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">8</Button>
+                <Button Grid.Column="4" Tag="9" Command="{Binding AsztalTetelekButton}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">9</Button>
+                <Button Grid.Row="1" Grid.Column="4" Tag="10" Command="{Binding AsztalTetelekButton}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">10</Button>
+
+
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</Window>
