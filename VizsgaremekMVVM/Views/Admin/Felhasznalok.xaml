@@ -31,8 +31,8 @@
         <Label>Vendégek:</Label>
         <Label Grid.Column="1">Alkalmazottak:</Label>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding Vendegek}"></ListBox>
-        <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Alkalmazottak}">
+        <ListBox Grid.Row="1" ItemsSource="{Binding Vendegek}" HorizontalContentAlignment="Stretch"></ListBox>
+        <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Alkalmazottak}" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Background="Transparent">

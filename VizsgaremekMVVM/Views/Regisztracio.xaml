@@ -62,7 +62,7 @@
             <!--Jogosultság-->
             <StackPanel>
                 <TextBlock Text="Jogosultság:" />
-                <ComboBox HorizontalAlignment="Center" Height="25" x:Name="jogosultsag" Width="200" SelectedIndex="{Binding Felhasznalo.Jog,Mode=OneWayToSource}">
+                <ComboBox HorizontalAlignment="Center" Height="25" x:Name="jogosultsag" Width="200" SelectedIndex="{Binding Felhasznalo.Jog}">
                     <ComboBoxItem Visibility="Collapsed">VendégPlaceholder</ComboBoxItem>
                     <ComboBoxItem IsSelected="true">Felszolgáló</ComboBoxItem>
                     <ComboBoxItem>Szakács</ComboBoxItem>
@@ -72,6 +72,6 @@
             </StackPanel>
         </StackPanel>
 
-        <Button Content="{Binding AblakSzoveg}" Grid.Row="1" Command="{Binding RegisztralasButton}"/>
+        <Button Content="{Binding AblakSzoveg}" Grid.Row="1" Command="{Binding RegisztralasButton}" IsDefault="True"/>
     </Grid>
 </Window>

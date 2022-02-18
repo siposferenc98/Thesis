@@ -6,6 +6,7 @@ using VizsgaremekMVVM.Models.Buttons;
 using System.Windows;
 using System.Runtime.CompilerServices;
 using System;
+using System.Net.Http;
 
 namespace VizsgaremekMVVM.ViewModels
 {
@@ -23,41 +24,71 @@ namespace VizsgaremekMVVM.ViewModels
         {
             if (f is not null)
             {
+                Felhasznalo.Azon = f.Azon;
                 Felhasznalo.Nev = f.Nev;
                 Felhasznalo.Tel = f.Tel;
                 Felhasznalo.Lak = f.Lak;
                 Felhasznalo.Jog = f.Jog;
                 Felhasznalo.Email = f.Email;
+                Felhasznalo.Pw = f.Pw;
                 AblakSzoveg = "Felhasználó módosítása";
             }
+            if (adminRegisztracio)
+                Felhasznalo.Jog = 4;
         }
 
-        private void Regisztralas(object? o)
+        private async void Regisztralas(object? o)
         {
-            if(Jelszo == JelszoEllenoriz)
+            HttpResponseMessage eredmeny;
+            if (Felhasznalo.Azon is not 0)
             {
-                Felhasznalo.Pw = MD5Hashing.hashPW(Jelszo);
-                var eredmeny = _http.httpClient.PutAsync("https://localhost:5001/Felhasznalok", _http.contentKrealas(Felhasznalo));
-
-                if(eredmeny.Result.IsSuccessStatusCode)
+                eredmeny = await _http.httpClient.PutAsync("https://localhost:5001/Felhasznalok"+$"/{Felhasznalo.Azon}", _http.contentKrealas(Felhasznalo));
+                if (eredmeny.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Sikeres regisztrálás!");
+                    MessageBox.Show("A felhasználó módosítva lett!");
                     FelhasznaloModositvaVagyHozzaadva.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
-                    MessageBox.Show("Hiba történt a regisztráció során! " + eredmeny.Result.StatusCode);
+                    MessageBox.Show("Hiba történt a felhasználó módosítása során");
                 }
+
             }
             else
             {
-                MessageBox.Show("A jelszavaknak egyeznie kell!");
+                if(Jelszo == JelszoEllenoriz)
+                {
+                    Felhasznalo.Pw = MD5Hashing.hashPW(Jelszo);
+                    eredmeny = await _http.httpClient.PutAsync("https://localhost:5001/Felhasznalok", _http.contentKrealas(Felhasznalo));
+
+                    if(eredmeny.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Sikeres regisztrálás!");
+                        FelhasznaloModositvaVagyHozzaadva.Invoke(this, EventArgs.Empty);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Hiba történt a regisztráció során! " + eredmeny.StatusCode);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("A jelszavaknak egyeznie kell!");
+                }
             }
         }
         private bool RegisztralasCE()
         {
-            if (Felhasznalo.Nev?.Length > 0 && Felhasznalo.Tel?.Length > 0 && Felhasznalo.Email?.Length > 0 && Felhasznalo.Lak?.Length > 0 && Jelszo.Length > 0 && JelszoEllenoriz.Length > 0)
-                return true;
+            if (Felhasznalo.Azon is not 0)
+            {
+                if (Felhasznalo.Nev?.Length > 0 && Felhasznalo.Tel?.Length > 0 && Felhasznalo.Email?.Length > 0 && Felhasznalo.Lak?.Length > 0)
+                    return true;
+            }
+            else
+            {
+                if (Felhasznalo.Nev?.Length > 0 && Felhasznalo.Tel?.Length > 0 && Felhasznalo.Email?.Length > 0 && Felhasznalo.Lak?.Length > 0 && Jelszo.Length > 0 && JelszoEllenoriz.Length > 0)
+                    return true;
+            }
 
             return false;
         }

@@ -24,6 +24,10 @@ namespace VizsgaremekMVVM.Views
             {
                 jelszoStackBox.Visibility = Visibility.Collapsed;
             }
+            if (adminRegisztracio || f?.Jog == 4)
+            {
+                jogosultsag.IsEnabled = false;
+            }
             DataContext = regisztracioVM;
             telSzamBox.PreviewTextInput += RegexClass.csakSzamok;
             regisztracioVM.FelhasznaloModositvaVagyHozzaadva += RegisztracioVM_FelhasznaloModositvaVagyHozzaadva;
