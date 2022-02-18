@@ -16,7 +16,7 @@ namespace VizsgaremekMVVM.ViewModels.Admin
     internal class TermekekVM : INotifyPropertyChanged
     {
         public Termekek Termekek { get; set; } = new();
-        public ICommand ListBoxItemClick => new Button(ListboxClick);
+        public ICommand TermekModositVagyHozzaadButton => new Button(TermekModositVagyHozzaad);
 
         public TermekekVM()
         {
@@ -29,10 +29,13 @@ namespace VizsgaremekMVVM.ViewModels.Admin
                 RaisePropertyChanged("Termekek");
             }
         }
-
-        public void ListboxClick(object? o)
+        public void TermekModositVagyHozzaad(object? o)
         {
-            ITermek termek = (ITermek)o!;
+            ITermek? termek = null;
+            if (o is not null)
+            {
+                termek = (ITermek)o!;
+            }
             Views.Admin.TermekModositas termekmodositas = new(termek);
             if (termekmodositas.ShowDialog() == true)
             {

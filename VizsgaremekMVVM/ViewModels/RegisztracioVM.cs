@@ -5,17 +5,32 @@ using VizsgaremekMVVM.Models;
 using VizsgaremekMVVM.Models.Buttons;
 using System.Windows;
 using System.Runtime.CompilerServices;
+using System;
 
 namespace VizsgaremekMVVM.ViewModels
 {
     internal class RegisztracioVM : INotifyPropertyChanged
     {
+        public event EventHandler FelhasznaloModositvaVagyHozzaadva;
         private HttpClientClass _http { get; set; } = new();
         public Felhasznalo Felhasznalo { get; set; } = new();
         public string Jelszo { get; set; } = string.Empty;
         public string JelszoEllenoriz { get; set; } = string.Empty;
-
+        public string AblakSzoveg { get; set; } = "Regisztráció";
         public ICommand RegisztralasButton => new ButtonCE(Regisztralas,RegisztralasCE);
+
+        public RegisztracioVM(Felhasznalo? f, bool adminRegisztracio)
+        {
+            if (f is not null)
+            {
+                Felhasznalo.Nev = f.Nev;
+                Felhasznalo.Tel = f.Tel;
+                Felhasznalo.Lak = f.Lak;
+                Felhasznalo.Jog = f.Jog;
+                Felhasznalo.Email = f.Email;
+                AblakSzoveg = "Felhasználó módosítása";
+            }
+        }
 
         private void Regisztralas(object? o)
         {
@@ -27,7 +42,7 @@ namespace VizsgaremekMVVM.ViewModels
                 if(eredmeny.Result.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Sikeres regisztrálás!");
-                    ((Window)o!).Close();
+                    FelhasznaloModositvaVagyHozzaadva.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {

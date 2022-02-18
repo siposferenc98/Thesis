@@ -25,6 +25,7 @@ namespace VizsgaremekMVVM.Views.Admin
         {
             InitializeComponent();
             DataContext = new FelhasznalokVM();
+            
         }
     }
 }

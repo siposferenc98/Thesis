@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using VizsgaremekMVVM.ViewModels;
 using VizsgaremekMVVM.Models;
+using VizsgaremekMVVM.Models.BurgerEtterem;
 
 namespace VizsgaremekMVVM.Views
 {
@@ -15,11 +16,23 @@ namespace VizsgaremekMVVM.Views
     /// </summary>
     public partial class Regisztracio : Window
     {
-        public Regisztracio()
+        public Regisztracio(Felhasznalo? f = null, bool adminRegisztracio = false)
         {
             InitializeComponent();
-            DataContext = new RegisztracioVM();
+            RegisztracioVM regisztracioVM = new(f,adminRegisztracio);
+            if (f is not null)
+            {
+                jelszoStackBox.Visibility = Visibility.Collapsed;
+            }
+            DataContext = regisztracioVM;
             telSzamBox.PreviewTextInput += RegexClass.csakSzamok;
+            regisztracioVM.FelhasznaloModositvaVagyHozzaadva += RegisztracioVM_FelhasznaloModositvaVagyHozzaadva;
+
+        }
+
+        private void RegisztracioVM_FelhasznaloModositvaVagyHozzaadva(object? sender, EventArgs e)
+        {
+            DialogResult = true;
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)

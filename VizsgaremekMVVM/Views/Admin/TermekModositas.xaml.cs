@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using VizsgaremekMVVM.Models;
 using VizsgaremekMVVM.Models.BurgerEtterem;
 using VizsgaremekMVVM.ViewModels.Admin;
 
@@ -10,12 +11,13 @@ namespace VizsgaremekMVVM.Views.Admin
     /// </summary>
     public partial class TermekModositas : Window
     {
-        public TermekModositas(ITermek termek)
+        public TermekModositas(ITermek? termek)
         {
             InitializeComponent();
             TermekModositasVM termekModositasVM = new(termek);
             DataContext = termekModositasVM;
             termekModositasVM.TermekModositva += TermekModositasVM_TermekModositva;
+            ArTextBox.PreviewTextInput += RegexClass.csakSzamok;
         }
 
         private void TermekModositasVM_TermekModositva(object? sender, EventArgs e)

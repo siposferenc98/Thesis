@@ -28,7 +28,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.ColumnSpan="2">
             <Label>Termék típusa:</Label>
-            <ComboBox SelectedIndex="{Binding KivalasztottTermek}">
+            <ComboBox SelectedIndex="{Binding KivalasztottTermek}" IsEnabled="{Binding KivalasztottTermekAktivE}">
                 <ComboBoxItem>Hamburger</ComboBoxItem>
                 <ComboBoxItem>Köret</ComboBoxItem>
                 <ComboBoxItem>Desszert</ComboBoxItem>
@@ -37,16 +37,16 @@
         </StackPanel>
         <StackPanel Grid.Row="1">
             <Label>Név:</Label>
-            <TextBox x:Name="termekNev"></TextBox>
+            <TextBox Text="{Binding Nev, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </StackPanel>
         <StackPanel Grid.Row="1"  Grid.Column="1">
             <Label>Ár:</Label>
-            <TextBox x:Name="termekAr"></TextBox>
+            <TextBox Text="{Binding Ar,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" x:Name="ArTextBox"></TextBox>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
             <Label>Leírás:</Label>
-            <TextBox x:Name="termekLeiras"></TextBox>
-            <CheckBox Margin="5px" Content="Aktív" HorizontalAlignment="Center" IsChecked="True" x:Name="aktivCheckBox"></CheckBox>
+            <TextBox Text="{Binding Leiras, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <CheckBox Margin="5px" HorizontalAlignment="Center" Content="Aktív" IsChecked="{Binding Aktiv}"></CheckBox>
         </StackPanel>
         <Button Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding TermekFrissitButton}">Termék módosítása</Button>
     </Grid>

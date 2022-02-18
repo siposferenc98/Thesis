@@ -7,8 +7,7 @@
         xmlns:viewmodels="clr-namespace:VizsgaremekMVVM.ViewModels"
         d:DataContext="{d:DesignInstance Type=viewmodels:RegisztracioVM}"
         mc:Ignorable="d"
-        x:Name="RegisztacioAblak"
-        Title="Regisztracio" MinHeight="600" Height="600" MinWidth="400" Width="400">
+        Title="{Binding AblakSzoveg}" MinHeight="600" Height="600" MinWidth="400" Width="400">
     <Window.Resources>
         <Style TargetType="StackPanel">
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
@@ -72,7 +71,7 @@
                 </ComboBox>
             </StackPanel>
         </StackPanel>
-        
-        <Button Content="Regisztráció" Grid.Row="1" Command="{Binding RegisztralasButton}" CommandParameter="{Binding ElementName=RegisztacioAblak}"/>
+
+        <Button Content="{Binding AblakSzoveg}" Grid.Row="1" Command="{Binding RegisztralasButton}"/>
     </Grid>
 </Window>

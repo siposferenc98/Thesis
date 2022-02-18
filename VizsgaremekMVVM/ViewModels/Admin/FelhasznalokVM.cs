@@ -4,6 +4,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using VizsgaremekMVVM.Models.Lists;
 using VizsgaremekMVVM.Models.BurgerEtterem;
+using System.Windows.Input;
+using VizsgaremekMVVM.Models.Buttons;
+using System;
 
 namespace VizsgaremekMVVM.ViewModels.Admin
 {
@@ -30,6 +33,8 @@ namespace VizsgaremekMVVM.ViewModels.Admin
                 RaisePropertyChanged();
             }
         }
+        public ICommand FelhasznaloMVAdminButton => new Button(FelhasznaloModositasaVagyAdminFHozzaadasa);
+
         public FelhasznalokVM()
         {
             FelhasznalokFrissitese();
@@ -42,6 +47,26 @@ namespace VizsgaremekMVVM.ViewModels.Admin
                 Vendegek = new(_felhasznalok.FelhasznaloLista.Where(x => x.Jog == 0));
             }
         }
+        private void FelhasznaloModositasaVagyAdminFHozzaadasa(object? o)
+        {
+            Views.Regisztracio regisztracio;
+            if (o is not null)
+            {
+                Felhasznalo f = (Felhasznalo)o;
+                regisztracio = new(f);
+            }
+            else
+            {
+                regisztracio = new(adminRegisztracio: true);
+            }
+
+            if (regisztracio.ShowDialog() == true)
+            {
+                FelhasznalokFrissitese();
+            }
+
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         public void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
         {

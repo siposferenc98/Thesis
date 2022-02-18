@@ -39,62 +39,62 @@
         <ListBox Grid.Row="1" ItemsSource="{Binding Termekek.Burgerek}" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Background="AliceBlue">
+                    <Grid Background="Transparent">
                         <Grid.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding RelativeSource=
                                             {RelativeSource AncestorType=UserControl},
-                                            Path=DataContext.ListBoxItemClick}" CommandParameter="{Binding}"/>
+                                            Path=DataContext.TermekModositVagyHozzaadButton}" CommandParameter="{Binding}"/>
                         </Grid.InputBindings>
-                        <TextBlock  HorizontalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="{Binding Bnev}"></TextBlock>
+                        <TextBlock Foreground="{Binding AktivSzoveg}"  HorizontalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="{Binding Bnev}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Termekek.Koretek}">
+        <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Termekek.Koretek}" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Background="Transparent">
                         <Grid.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding RelativeSource=
                                             {RelativeSource AncestorType=UserControl},
-                                            Path=DataContext.ListBoxItemClick}" CommandParameter="{Binding}"/>
+                                            Path=DataContext.TermekModositVagyHozzaadButton}" CommandParameter="{Binding}"/>
                         </Grid.InputBindings>
-                        <TextBlock  HorizontalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="{Binding Knev}"></TextBlock>
+                        <TextBlock Foreground="{Binding AktivSzoveg}" HorizontalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="{Binding Knev}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Termekek.Desszertek}">
+        <ListBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Termekek.Desszertek}" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Background="Transparent">
                         <Grid.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding RelativeSource=
                                             {RelativeSource AncestorType=UserControl},
-                                            Path=DataContext.ListBoxItemClick}" CommandParameter="{Binding}"/>
+                                            Path=DataContext.TermekModositVagyHozzaadButton}" CommandParameter="{Binding}"/>
                         </Grid.InputBindings>
-                        <TextBlock  HorizontalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="{Binding Dnev}"></TextBlock>
+                        <TextBlock Foreground="{Binding AktivSzoveg}" HorizontalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="{Binding Dnev}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding Termekek.Italok}">
+        <ListBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding Termekek.Italok}" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Background="Transparent">
                         <Grid.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding RelativeSource=
                                             {RelativeSource AncestorType=UserControl},
-                                            Path=DataContext.ListBoxItemClick}" CommandParameter="{Binding}"/>
+                                            Path=DataContext.TermekModositVagyHozzaadButton}" CommandParameter="{Binding}"/>
                         </Grid.InputBindings>
-                        <TextBlock  HorizontalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="{Binding Inev}"></TextBlock>
+                        <TextBlock Foreground="{Binding AktivSzoveg}" HorizontalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="{Binding Inev}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <!--Vezérlő-->
 
-        <Button Grid.Row="2" Grid.ColumnSpan="4">Hozzáadás</Button>
+        <Button Grid.Row="2" Grid.ColumnSpan="4" Command="{Binding TermekModositVagyHozzaadButton}">Hozzáadás</Button>
     </Grid>
 
 </UserControl>

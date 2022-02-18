@@ -32,7 +32,20 @@
         <Label Grid.Column="1">Alkalmazottak:</Label>
 
         <ListBox Grid.Row="1" ItemsSource="{Binding Vendegek}"></ListBox>
-        <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Alkalmazottak}"></ListBox>
-        <Button Grid.Row="3" Grid.ColumnSpan="2">Admin felhasználó hozzáadása</Button>
+        <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Alkalmazottak}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="Transparent">
+                        <Grid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding RelativeSource=
+                                            {RelativeSource AncestorType=UserControl},
+                                            Path=DataContext.FelhasznaloMVAdminButton}" CommandParameter="{Binding}"/>
+                        </Grid.InputBindings>
+                        <TextBlock HorizontalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="{Binding Nev}"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding FelhasznaloMVAdminButton}">Admin felhasználó hozzáadása</Button>
     </Grid>
 </UserControl>
