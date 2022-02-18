@@ -41,7 +41,10 @@ namespace VizsgaremekMVVM.Views.Admin
                     break;
                 case "felhasznalokNav":
                     contentControl.Content = new Felhasznalok();
-                    break; 
+                    break;
+                case "foglalasokNav":
+                    contentControl.Content = new Foglalasok();
+                    break;
             }
             foreach (object gomb in gombok)
             {
