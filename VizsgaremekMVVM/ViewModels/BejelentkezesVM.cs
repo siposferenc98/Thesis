@@ -91,7 +91,7 @@ namespace VizsgaremekMVVM.ViewModels
             }
             else
             {
-                MessageBox.Show("Hibás felhasználónév vagy jelszó! " + result.StatusCode);
+                MessageBox.Show("Hibás felhasználónév vagy jelszó!");
             }
         }
 

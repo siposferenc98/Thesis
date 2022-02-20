@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using VizsgaremekMVVM.Models.Lists;
 using System.Linq;
-using VizsgaremekMVVM.Models.BurgerEtterem;
 using System.Windows.Media;
+
 
 namespace VizsgaremekMVVM.Views.Felszolgalo
 {
@@ -22,6 +22,8 @@ namespace VizsgaremekMVVM.Views.Felszolgalo
             FelszolgaloUIVM felszolgaloUIVM = new();
             DataContext = felszolgaloUIVM;
             felszolgaloUIVM.AsztalokRajzol += asztalokSzinez;
+            kijelentkezesMenu.Click += Kijelentkezes.kijelentkezes;
+            jelszoValtoztatMenu.Click += JelszoValtoztatEljaras.jelszoValtoztat;
         }
        
         private void asztalokSzinez(object? sender, EventArgs e)

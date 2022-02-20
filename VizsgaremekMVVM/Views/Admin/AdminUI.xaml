@@ -49,8 +49,8 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button x:Name="fooldalButton" Click="Nav">Főoldal</Button>
-            <Button Grid.Row="1" x:Name="termekekButton" Click="Nav">Termékek</Button>
+            <Button x:Name="fooldalNav" Click="Nav">Főoldal</Button>
+            <Button Grid.Row="1" x:Name="termekekNav" Click="Nav">Termékek</Button>
             <Button Grid.Row="2" x:Name="rendelesNav" Click="Nav">Rendelések</Button>
             <Button Grid.Row="3" x:Name="felhasznalokNav" Click="Nav">Felhasználók</Button>
             <Button Grid.Row="4" x:Name="foglalasokNav" Click="Nav">Foglalások</Button>

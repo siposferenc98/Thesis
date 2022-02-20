@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Linq;
 using System.Threading.Tasks;
 using VizsgaremekMVVM.Models.BurgerEtterem;
 using VizsgaremekMVVM.Models.Lists;

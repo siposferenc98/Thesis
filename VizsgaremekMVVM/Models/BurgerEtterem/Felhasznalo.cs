@@ -11,7 +11,7 @@ namespace VizsgaremekMVVM.Models.BurgerEtterem
     public partial class Felhasznalo : INotifyPropertyChanged
     {
         private string _nev, _lak, _tel, _email;
-        private int _jog;
+        private int _jog = 1;
         public Felhasznalo()
         {
             Foglalas = new HashSet<Foglala>();

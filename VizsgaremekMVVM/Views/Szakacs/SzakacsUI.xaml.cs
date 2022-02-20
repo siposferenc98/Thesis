@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VizsgaremekMVVM.ViewModels.Szakacs;
+using VizsgaremekMVVM.Models;
 
 namespace VizsgaremekMVVM.Views.Szakacs
 {
@@ -24,6 +25,8 @@ namespace VizsgaremekMVVM.Views.Szakacs
         {
             InitializeComponent();
             DataContext = new SzakacsUIVM();
+            kijelentkezesMenu.Click += Kijelentkezes.kijelentkezes;
+            jelszoValtoztatMenu.Click += JelszoValtoztatEljaras.jelszoValtoztat;
         }
     }
 }

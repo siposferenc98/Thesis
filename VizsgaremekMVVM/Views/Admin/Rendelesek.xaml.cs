@@ -10,23 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using VizsgaremekMVVM.ViewModels.Pultos;
-using VizsgaremekMVVM.Models;
+using VizsgaremekMVVM.ViewModels.Admin;
 
-namespace VizsgaremekMVVM.Views.Pultos
+namespace VizsgaremekMVVM.Views.Admin
 {
     /// <summary>
-    /// Interaction logic for PultosUI.xaml
+    /// Interaction logic for Rendelesek.xaml
     /// </summary>
-    public partial class PultosUI : Window
+    public partial class Rendelesek : UserControl
     {
-        public PultosUI()
+        public Rendelesek()
         {
             InitializeComponent();
-            DataContext = new PultosUIVM();
-            kijelentkezesMenu.Click += Kijelentkezes.kijelentkezes;
-            jelszoValtoztatMenu.Click += JelszoValtoztatEljaras.jelszoValtoztat;
+            DataContext = new RendelesekVM();
         }
     }
 }
