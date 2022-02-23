@@ -15,7 +15,7 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="600" Height="600" MinWidth="900" Width="900">
+        Title="Bejelentkezés" MinHeight="600" Height="600" MinWidth="900" Width="900">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.3*"></RowDefinition>

@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows;
 using VizsgaremekMVVM.Views;
 using System.Linq;
+using System;
 
 namespace VizsgaremekMVVM.ViewModels
 {
@@ -79,20 +80,27 @@ namespace VizsgaremekMVVM.ViewModels
         private async void Bejelentkezes(object? o)
         {
             Felhasznalo f = new() { Email = Felhasznalo , Pw = MD5Hashing.hashPW(Pw.ToString()!)};
-            var result = await _http.httpClient.PostAsync(_http.url+"Felhasznalok", _http.contentKrealas(f));
-
-            if (result.IsSuccessStatusCode)
+            try
             {
-                string felhJson = await result.Content.ReadAsStringAsync();
-                AktivFelhasznalo.Aktiv = JsonSerializer.Deserialize<Felhasznalo>(felhJson)!;
-                AktivFelhasznalo.Token = result.Headers.GetValues("Auth").FirstOrDefault();
+                var result = await _http.httpClient.PostAsync(_http.url+"Felhasznalok", _http.contentKrealas(f));
+                if (result.IsSuccessStatusCode)
+                {
+                    string felhJson = await result.Content.ReadAsStringAsync();
+                    AktivFelhasznalo.Aktiv = JsonSerializer.Deserialize<Felhasznalo>(felhJson)!;
+                    AktivFelhasznalo.Token = result.Headers.GetValues("Auth").FirstOrDefault();
                 
-                UIMegjelenit(o);
+                    UIMegjelenit(o);
+                }
+                else
+                {
+                    MessageBox.Show("Hibás felhasználónév vagy jelszó!");
+                }
             }
-            else
+            catch(Exception e)
             {
-                MessageBox.Show("Hibás felhasználónév vagy jelszó!");
+                MessageBox.Show(e.Message);
             }
+
         }
 
         private bool BejelentkezesCE()

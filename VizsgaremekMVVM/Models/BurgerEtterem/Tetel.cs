@@ -74,7 +74,9 @@ namespace VizsgaremekMVVM.Models.BurgerEtterem
         
         public string Status => GetStatus();
         [JsonIgnore]
-        public string Reszletek => GetReszletek();
+        public string SzakacsReszletek => GetSzakacsReszletek();
+        [JsonIgnore]
+        public string PultosReszletek => GetPultosReszletek();
 
         [JsonIgnore]
         public int? Vegosszeg => BazonNavigation.Bar * Bdb + KazonNavigation.Kar * Kdb + DazonNavigation.Dar * Ddb + IazonNavigation.Iar * Idb;
@@ -104,6 +106,7 @@ namespace VizsgaremekMVVM.Models.BurgerEtterem
                         if (_stopwatch.Elapsed > TimeSpan.FromSeconds(60))
                         {
                             Brush = new SolidColorBrush(Colors.Red);
+                            _stopwatch.Stop();
                         }
                         else if(_stopwatch.Elapsed > TimeSpan.FromSeconds(30))
                         {
@@ -119,7 +122,7 @@ namespace VizsgaremekMVVM.Models.BurgerEtterem
                 await Task.Delay(1000);
             }
         }
-        private string GetReszletek()
+        private string GetSzakacsReszletek()
         {
             string ki = "";
             if (BazonNavigation.Bazon > 1)
@@ -130,6 +133,10 @@ namespace VizsgaremekMVVM.Models.BurgerEtterem
                 ki += $"{Ddb} {DazonNavigation.Dnev}, ";
             ki += $"{Razon}. számú rendeléshez.";
             return ki;
+        }
+        private string GetPultosReszletek()
+        {
+            return $"{Idb} {IazonNavigation.Inev} {Razon}. számú rendeléshez.";
         }
 
         private string GetStatus()

@@ -34,9 +34,9 @@
                     <MenuItem Header="Kijelentkezés" x:Name="kijelentkezesMenu"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Felületek">
-                    <MenuItem Header="Felszolgáló"></MenuItem>
-                    <MenuItem Header="Szakács"></MenuItem>
-                    <MenuItem Header="Pultos"></MenuItem>
+                    <MenuItem Header="Felszolgáló" x:Name="fAblak" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Header="Szakács" x:Name="szAblak" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Header="Pultos" x:Name="pAblak" Click="MenuItem_Click"></MenuItem>
                 </MenuItem>
             </Menu>
         </DockPanel>

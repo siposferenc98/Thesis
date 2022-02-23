@@ -65,5 +65,26 @@ namespace VizsgaremekMVVM.Views.Admin
                 }
             }
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+            switch (menuItem.Name)
+            {
+                case "fAblak":
+                    Felszolgalo.FelszolgaloUI felszolgaloUI = new();
+                    felszolgaloUI.Show();
+                    break;
+                case "szAblak":
+                    Szakacs.SzakacsUI szakacsUI = new();
+                    szakacsUI.Show();
+                    break;
+                case "pAblak":
+                    Pultos.PultosUI pultosUI = new();
+                    pultosUI.Show();
+                    break;
+            }
+
+        }
     }
 }
