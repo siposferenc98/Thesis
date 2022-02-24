@@ -164,7 +164,8 @@ namespace VizsgaremekMVVM.Models.BurgerEtterem
             KazonNavigation = t.KazonNavigation;
             DazonNavigation = t.DazonNavigation;
             IazonNavigation = t.IazonNavigation;
-            RaisePropertyChanged("Reszletek");
+            RaisePropertyChanged("SzakacsReszletek");
+            RaisePropertyChanged("PultosReszletek");
             RaisePropertyChanged("Status");
         }
         public event PropertyChangedEventHandler PropertyChanged;

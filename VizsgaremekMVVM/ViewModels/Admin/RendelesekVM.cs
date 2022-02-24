@@ -46,9 +46,10 @@ namespace VizsgaremekMVVM.ViewModels.Admin
 
         private void RendelesStackPanelGen()
         {
+            List<Task<Grid>> taskok = new();
             _rendelesekLista.RendelesekLista.ForEach(x =>
             {
-                Rendelesek.Add(RendelesStackPanelExpander.rendelesElemKeszit(x));
+               Rendelesek.Add(RendelesStackPanelExpander.rendelesElemKeszit(x));
             });
         }
 

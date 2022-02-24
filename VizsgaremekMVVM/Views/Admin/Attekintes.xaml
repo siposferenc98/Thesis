@@ -19,6 +19,7 @@
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="24"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         </Style>
         <Style TargetType="Grid" x:Key="AsztalokGrid">
             <Style.Resources>
@@ -41,16 +42,16 @@
             </Grid.ColumnDefinitions>
             <StackPanel>
                 <TextBlock>Mai bevétel:</TextBlock>
-                <TextBlock></TextBlock>
+                <TextBlock Text="{Binding MaiBevetel,StringFormat='\{0} Ft.'}"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="1">
                 <TextBlock>Havi bevétel:</TextBlock>
-                <TextBlock></TextBlock>
+                <TextBlock Text="{Binding HaviBevetel,StringFormat='\{0} Ft.'}"></TextBlock>
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="1">
             <TextBlock>Összes bevétel:</TextBlock>
-            <TextBlock></TextBlock>
+            <TextBlock Text="{Binding OsszBevetel,StringFormat='\{0} Ft.'}"></TextBlock>
         </StackPanel>
         <Grid Grid.Row="2" Margin="10" x:Name="AsztalokGrid" Style="{StaticResource AsztalokGrid}" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>

@@ -40,10 +40,11 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
                 _kivalasztottTetel = value;
                 if (value != null)
                 {
-                    TetelAdatok.Burger = Termekek.Burgerek.First(x=>x.Bazon == KivalasztottTetel.Bazon);
-                    TetelAdatok.Ital = Termekek.Italok.First(x=>x.Iazon == KivalasztottTetel.Iazon);
-                    TetelAdatok.Koret = Termekek.Koretek.First(x => x.Kazon == KivalasztottTetel.Kazon);
-                    TetelAdatok.Desszert = Termekek.Desszertek.First(x => x.Dazon == KivalasztottTetel.Dazon);
+                    //TODO MÁS MEGOLDÁST KITALÁLNI RÁ (de működik így is)
+                    TetelAdatok.Burger = Termekek.Burgerek.FirstOrDefault(x=>x.Bazon == KivalasztottTetel.Bazon);
+                    TetelAdatok.Ital = Termekek.Italok.FirstOrDefault(x=>x.Iazon == KivalasztottTetel.Iazon);
+                    TetelAdatok.Koret = Termekek.Koretek.FirstOrDefault(x => x.Kazon == KivalasztottTetel.Kazon);
+                    TetelAdatok.Desszert = Termekek.Desszertek.FirstOrDefault(x => x.Dazon == KivalasztottTetel.Dazon);
                     TetelAdatok.Bdb = KivalasztottTetel.Bdb;
                     TetelAdatok.Ddb = KivalasztottTetel.Ddb;
                     TetelAdatok.Idb = KivalasztottTetel.Idb;
