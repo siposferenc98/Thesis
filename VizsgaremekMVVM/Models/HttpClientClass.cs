@@ -10,6 +10,7 @@ namespace VizsgaremekMVVM.Models
 {
     public class HttpClientClass
     {
+        //TODO DICTIONARY VAGY VALAMIT CSINÁLNI AZ ENDPOINTOKNAK!
         public string url = "https://localhost:5001/";
         public HttpClient httpClient { get; set; }
         public HttpClientClass()
