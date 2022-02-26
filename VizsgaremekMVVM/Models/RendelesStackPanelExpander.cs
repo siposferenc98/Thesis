@@ -39,7 +39,7 @@ namespace VizsgaremekMVVM.Models
             Grid g = new();
 
             Expander ex = new(); //expander nem tartalmazhat több elemet, csak .Content-je lehet, szóval a contentje a datagridünk lesz
-            ex.Header = $"{r.Razon} számú rendelés, {r.Ido}";
+            ex.Header = $"{r.Razon}. számú rendelés, {r.Ido.ToString("yyyy.M.d HH.mm")}";
             ex.HorizontalContentAlignment = HorizontalAlignment.Stretch;
             DataGrid dataGrid = new(); //létrehozunk egy datagridet
             dataGrid.Margin = new Thickness(10);

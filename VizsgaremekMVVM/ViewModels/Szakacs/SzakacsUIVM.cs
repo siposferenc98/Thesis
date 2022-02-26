@@ -78,7 +78,7 @@ namespace VizsgaremekMVVM.ViewModels.Szakacs
         private async void TetelKesz(object? o)
         {
             KivalasztottTetel.Etelstatus = 2;
-            var tetelKeszCall = await _http.httpClient.PutAsync(_http.url + "Tetelek?szakacs=true", _http.contentKrealas(KivalasztottTetel));
+            var tetelKeszCall = await _http.httpClient.PutAsync(_http.url + "Tetelek/Status?szakacs=true", _http.contentKrealas(KivalasztottTetel));
             if (tetelKeszCall.IsSuccessStatusCode)
             {
                 Tetelek.Remove(KivalasztottTetel);
