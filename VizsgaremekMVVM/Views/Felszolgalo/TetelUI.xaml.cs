@@ -25,11 +25,18 @@ namespace VizsgaremekMVVM.Views.Felszolgalo
         public TetelUI(Rendele r)
         {
             InitializeComponent();
-            DataContext = new TetelUIVM(r);
+            TetelUIVM tetelUIVM = new(r);
+            DataContext = tetelUIVM;
             Bdb.PreviewTextInput += RegexClass.csakSzamok;
             Idb.PreviewTextInput += RegexClass.csakSzamok;
             Ddb.PreviewTextInput += RegexClass.csakSzamok;
             Kdb.PreviewTextInput += RegexClass.csakSzamok;
+            tetelUIVM.TetelHozzaadva += TetelUIVM_TetelHozzaadva;
+        }
+
+        private void TetelUIVM_TetelHozzaadva(object? sender, EventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }

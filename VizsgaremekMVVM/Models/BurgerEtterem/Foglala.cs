@@ -31,7 +31,7 @@ namespace VizsgaremekMVVM.Models.BurgerEtterem
 
         public override string ToString()
         {
-            return $"Név: {FelhasznaloNev}, {Szemelydb} főre, {Foglalasido.Year}/{Foglalasido.Month}/{Foglalasido.Day} {Foglalasido.TimeOfDay}. F.sz: {Fazon}.";
+            return $"Név: {FelhasznaloNev}, {Szemelydb} főre, {Foglalasido.Year}.{Foglalasido.Month}.{Foglalasido.Day} {Foglalasido.TimeOfDay}. F.sz: {Fazon}.";
         }
     }
 }

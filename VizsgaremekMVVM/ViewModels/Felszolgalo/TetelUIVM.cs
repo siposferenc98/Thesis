@@ -20,7 +20,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
     {
         private Rendele _rendeles;
         private HttpClientClass _http = new();
-
+        public event EventHandler TetelHozzaadva;
         public Termekek Termekek { get; set; } = new();
         public TetelAdatok TetelAdatok { get; set; } = new();
         public ICommand TetelHozzaadasaButton => new ButtonCE(TetelHozzaadas,TetelHozzaadasCE);
@@ -60,7 +60,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
             var tetelHozzaadEredmeny = await _http.httpClient.PostAsync(_http.url + "Tetelek", _http.contentKrealas(t));
             if (tetelHozzaadEredmeny.IsSuccessStatusCode)
             {
-                ((Window)o!).Close();
+                TetelHozzaadva.Invoke(this, EventArgs.Empty);
             }
             else
                 MessageBox.Show("Hiba történt a tétel hozzáadása során. " + tetelHozzaadEredmeny.ReasonPhrase);

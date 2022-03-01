@@ -19,7 +19,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
     internal class FelszolgaloUIVM : INotifyPropertyChanged
     {
         #region Private Fields
-        private int _kivalasztottAsztal;
+        private int _kivalasztottAsztal = -1;
         private bool _beteroVendeg;
         private readonly HttpClientClass _http = new();
         private Rendelesek _rendelesek = new();
@@ -81,15 +81,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
             {
                 try
                 {
-                    if (await _rendelesek.RendelesekFrissit("/Aktiv") && await _foglalasok.FoglalasokFrissit("/Aktiv") && Application.Current is not null)
-                    {
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            RendelesekFrissit();
-                            FoglalasokFrissit();
-                            AsztalokFrissit();
-                        });
-                    }
+                    Frissitesek();
                 }
                 catch (Exception ex)
                 {
@@ -97,6 +89,23 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
                     break;
                 }
                 await Task.Delay(5000);
+            }
+        }
+
+        private async void Frissitesek()
+        {
+            if (await _rendelesek.RendelesekFrissit("/Aktiv") && await _foglalasok.FoglalasokFrissit("/Aktiv") && Application.Current is not null)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    RendelesekFrissit();
+                    FoglalasokFrissit();
+                    AsztalokFrissit();
+                });
+            }
+            else
+            {
+                MessageBox.Show("Hiba történt a rendelések/foglalások listák frissítése közben");
             }
         }
 
@@ -148,6 +157,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
                 r = JsonSerializer.Deserialize<Rendele>(await rendelesHozzaadEredmeny.Content.ReadAsStringAsync())!;
                 Rendelesek.Add(r);
                 KivalasztottAsztal = -1;
+                CommandManager.InvalidateRequerySuggested();
             }
 
         }
@@ -158,6 +168,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
             if (rendelesTorlesEredmeny.IsSuccessStatusCode)
             {
                 Rendelesek.Remove(KivalasztottRendeles);
+                Frissitesek();
                 CommandManager.InvalidateRequerySuggested();
             }
         }
@@ -166,6 +177,10 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
             KivalasztottRendeles.Etelstatus = 3;
             KivalasztottRendeles.Italstatus = 3;
             var rendelesFizetesreVarEredmeny = await _http.httpClient.PutAsync(_http.url + "Rendelesek", _http.contentKrealas(KivalasztottRendeles));
+            if (rendelesFizetesreVarEredmeny.IsSuccessStatusCode)
+            {
+                Frissitesek();
+            }
         }
         private async void RendelesFizetve(object? o)
         {
@@ -250,8 +265,11 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
         {
             List<int> torlesre = Asztalok.Where(x => _rendelesek.RendelesekLista.Any(o => o.Asztal == x && o.Etelstatus < 4 && o.Italstatus < 4)).ToList();
             
-            if(torlesre.Contains(KivalasztottAsztal))
-                KivalasztottAsztal = -1;
+            if (KivalasztottAsztal is not -1)
+            {
+                if(torlesre.Contains((int)KivalasztottAsztal))
+                    KivalasztottAsztal = -1;
+            }
             torlesre.ForEach(x=> Asztalok.Remove(x));
         }
         #endregion
@@ -259,7 +277,11 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
         private void TetelHozzaad(object? o)
         {
             Window tetelUI = new TetelUI(KivalasztottRendeles);
-            tetelUI.ShowDialog();
+            if (tetelUI.ShowDialog() == true)
+            {
+                Frissitesek();
+            }
+
         }
         private void RendelesReszlete(object? o)
         {
@@ -287,7 +309,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
         #region CanExecute
         private bool RendelesHozzaadCE()
         {
-            if (KivalasztottAsztal is not 0 && (KivalasztottFoglalas is not null || BeteroVendeg))
+            if (KivalasztottAsztal is not -1 && (KivalasztottFoglalas is not null || BeteroVendeg))
                 return true;
             return false;
         }
