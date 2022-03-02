@@ -91,7 +91,7 @@ namespace VizsgaremekMVVM.ViewModels.Admin
 
         private async Task<bool> BevetelekFrissit()
         {
-            var bevetelekresult = await _http.httpClient.GetAsync("https://localhost:5001/Rendelesek/Bevetel");
+            var bevetelekresult = await _http.httpClient.GetAsync(_http.Url + _http.Endpointok["Bevetelek"]);
             if (bevetelekresult.IsSuccessStatusCode)
             {
                 List<int> bevetelek = JsonSerializer.Deserialize<List<int>>(await bevetelekresult.Content.ReadAsStringAsync())!;

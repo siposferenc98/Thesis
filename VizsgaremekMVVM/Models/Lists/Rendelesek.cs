@@ -15,7 +15,7 @@ namespace VizsgaremekMVVM.Models.Lists
 
         public async Task<bool> RendelesekFrissit(string? parameter = null)
         {
-            var rendelesekcall = await _http.httpClient.GetAsync(_http.url + "Rendelesek" + parameter);
+            var rendelesekcall = await _http.httpClient.GetAsync(_http.Url + _http.Endpointok["Rendelesek"] + parameter);
             if(rendelesekcall.IsSuccessStatusCode)
             {
                 RendelesekLista = JsonSerializer.Deserialize<List<Rendele>>(await rendelesekcall.Content.ReadAsStringAsync())!;

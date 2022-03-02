@@ -75,7 +75,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
         }
         private async void TetelTorlese(object? o)
         {
-            var tetelTorleseCall = await _http.httpClient.DeleteAsync(_http.url + $"Tetelek/{KivalasztottTetel.Tazon}");
+            var tetelTorleseCall = await _http.httpClient.DeleteAsync(_http.Url + _http.Endpointok["Tetelek"]+$"/{KivalasztottTetel.Tazon}");
             if (tetelTorleseCall.IsSuccessStatusCode)
             {
                 Tetelek.Remove(KivalasztottTetel);
@@ -104,7 +104,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
                 Italstatus = KivalasztottTetel.Italstatus,
                 Razon = KivalasztottTetel.Razon,
             };
-            var tetelFrissiteseCall = await _http.httpClient.PutAsync(_http.url + $"Tetelek", _http.contentKrealas(t));
+            var tetelFrissiteseCall = await _http.httpClient.PutAsync(_http.Url + _http.Endpointok["Tetelek"], _http.contentKrealas(t));
             if (tetelFrissiteseCall.IsSuccessStatusCode)
             {
                 Tetel regitetel = Tetelek.First(x => x.Tazon == KivalasztottTetel.Tazon);

@@ -106,16 +106,16 @@ namespace VizsgaremekMVVM.ViewModels.Admin
             };
             string apiEndpoint = KivalasztottTermek switch
             {
-                0 => "Burgerek",
-                1 => "Koretek",
-                2 => "Desszertek",
-                3 => "Italok",
+                0 => _http.Endpointok["Burgerek"],
+                1 => _http.Endpointok["Koretek"],
+                2 => _http.Endpointok["Desszertek"],
+                3 => _http.Endpointok["Italok"],
                 _ => throw new NotImplementedException()
             };
             var method = KivalasztottTermekAktivE switch
             {
-                false => _http.httpClient.PutAsync(_http.url + apiEndpoint,_http.contentKrealas(termek)),
-                true => _http.httpClient.PostAsync(_http.url + apiEndpoint, _http.contentKrealas(termek))
+                false => _http.httpClient.PutAsync(_http.Url + apiEndpoint,_http.contentKrealas(termek)),
+                true => _http.httpClient.PostAsync(_http.Url + apiEndpoint, _http.contentKrealas(termek))
             };
 
             HttpResponseMessage eredmeny = await method;

@@ -26,7 +26,7 @@ namespace VizsgaremekMVVM.ViewModels
                 if (UjJelszo == UjJelszoEllenoriz)
                 {
                     AktivFelhasznalo.Aktiv.Pw = MD5Hashing.hashPW(UjJelszo);
-                    var jelszoValtoztatEredmeny = await _http.httpClient.PutAsync(_http.url + $"Felhasznalok/{AktivFelhasznalo.Aktiv.Azon}", _http.contentKrealas(AktivFelhasznalo.Aktiv));
+                    var jelszoValtoztatEredmeny = await _http.httpClient.PutAsync(_http.Url + _http.Endpointok["Felhasznalok"] + AktivFelhasznalo.Aktiv.Azon , _http.contentKrealas(AktivFelhasznalo.Aktiv));
                     if (jelszoValtoztatEredmeny.IsSuccessStatusCode)
                     {
                         MessageBox.Show("A jelszava sikeren megváltozott!");

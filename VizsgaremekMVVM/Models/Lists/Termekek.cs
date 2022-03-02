@@ -25,10 +25,10 @@ namespace VizsgaremekMVVM.Models.Lists
          
         public async Task<bool> ListakFrissit(string? parameter = null)
         {
-            var hamburgerCall = await _http.httpClient.GetAsync(_http.url + "Burgerek" +parameter);
-            var koretekCall = await _http.httpClient.GetAsync(_http.url + "Koretek" + parameter);
-            var italokCall = await _http.httpClient.GetAsync(_http.url + "Italok" + parameter);
-            var desszertekCall = await _http.httpClient.GetAsync(_http.url + "Desszertek" + parameter);
+            var hamburgerCall = await _http.httpClient.GetAsync(_http.Url + _http.Endpointok["Burgerek"] +parameter);
+            var koretekCall = await _http.httpClient.GetAsync(_http.Url + _http.Endpointok["Koretek"] + parameter);
+            var italokCall = await _http.httpClient.GetAsync(_http.Url + _http.Endpointok["Italok"] + parameter);
+            var desszertekCall = await _http.httpClient.GetAsync(_http.Url + _http.Endpointok["Desszertek"] + parameter);
             if (hamburgerCall.IsSuccessStatusCode && koretekCall.IsSuccessStatusCode && italokCall.IsSuccessStatusCode && desszertekCall.IsSuccessStatusCode)
             {
                 Burgerek = JsonSerializer.Deserialize<ObservableCollection<Burger>>(await hamburgerCall.Content.ReadAsStringAsync())!;

@@ -57,7 +57,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
                 Megjegyzes = TetelAdatok.Megjegyzes,
                 Razon = _rendeles.Razon
             };
-            var tetelHozzaadEredmeny = await _http.httpClient.PostAsync(_http.url + "Tetelek", _http.contentKrealas(t));
+            var tetelHozzaadEredmeny = await _http.httpClient.PostAsync(_http.Url + _http.Endpointok["Tetelek"], _http.contentKrealas(t));
             if (tetelHozzaadEredmeny.IsSuccessStatusCode)
             {
                 TetelHozzaadva.Invoke(this, EventArgs.Empty);

@@ -82,7 +82,7 @@ namespace VizsgaremekMVVM.ViewModels
             Felhasznalo f = new() { Email = Felhasznalo , Pw = MD5Hashing.hashPW(Pw.ToString()!)};
             try
             {
-                var result = await _http.httpClient.PostAsync(_http.url+"Felhasznalok", _http.contentKrealas(f));
+                var result = await _http.httpClient.PostAsync(_http.Url+ _http.Endpointok["Felhasznalok"], _http.contentKrealas(f));
                 if (result.IsSuccessStatusCode)
                 {
                     string felhJson = await result.Content.ReadAsStringAsync();

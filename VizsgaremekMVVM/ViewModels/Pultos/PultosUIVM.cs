@@ -78,7 +78,7 @@ namespace VizsgaremekMVVM.ViewModels.Pultos
         private async void TetelKesz(object? o)
         {
             KivalasztottTetel.Italstatus = 2;
-            var tetelKeszCall = await _http.httpClient.PutAsync(_http.url + "Tetelek/Status", _http.contentKrealas(KivalasztottTetel));
+            var tetelKeszCall = await _http.httpClient.PutAsync(_http.Url + _http.Endpointok["TetelFrissit"], _http.contentKrealas(KivalasztottTetel));
             if (tetelKeszCall.IsSuccessStatusCode)
             {
                 Tetelek.Remove(KivalasztottTetel);

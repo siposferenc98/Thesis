@@ -15,7 +15,7 @@ namespace VizsgaremekMVVM.Models.Lists
 
         public async Task<bool> FelhasznalokFrissit(string? parameter = null)
         {
-            var felhasznalokcall = await _http.httpClient.GetAsync(_http.url + "Felhasznalok" + parameter);
+            var felhasznalokcall = await _http.httpClient.GetAsync(_http.Url + _http.Endpointok["Felhasznalok"] + parameter);
             if(felhasznalokcall.IsSuccessStatusCode)
             {
                 FelhasznaloLista = JsonSerializer.Deserialize<List<Felhasznalo>>(await felhasznalokcall.Content.ReadAsStringAsync())!;

@@ -10,9 +10,24 @@ namespace VizsgaremekMVVM.Models
 {
     public class HttpClientClass
     {
-        //TODO DICTIONARY VAGY VALAMIT CSINÁLNI AZ ENDPOINTOKNAK!
-        public string url = "https://localhost:5001/";
+        private readonly string _url = "https://localhost:5001/";
+        public Dictionary<string, string> Endpointok = new()
+        {
+            {"Burgerek" , "Burgerek"},
+            {"Desszertek" , "Desszertek"},
+            {"Felhasznalok" , "Felhasznalok"},
+            {"Foglalasok" , "Foglalasok"},
+            {"Italok" , "Italok"},
+            {"Koretek" , "Koretek"},
+            {"Rendelesek" , "Rendelesek"},
+            {"Bevetelek" , "Rendelesek/Bevetel"},
+            {"Tetelek" , "Tetelek"},
+            {"PultosTetelek" , "Tetelek/Pultos"},
+            {"SzakacsTetelek" , "Tetelek/Szakacs"},
+            {"TetelFrissit" , "Tetelek/Status"}
+        };
         public HttpClient httpClient { get; set; }
+        public string Url => _url;
         public HttpClientClass()
         {
             httpClient = new();

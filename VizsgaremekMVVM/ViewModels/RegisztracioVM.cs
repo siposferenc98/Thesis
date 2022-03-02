@@ -59,7 +59,12 @@ namespace VizsgaremekMVVM.ViewModels
                 if(Jelszo == JelszoEllenoriz)
                 {
                     Felhasznalo.Pw = MD5Hashing.hashPW(Jelszo);
-                    eredmeny = await _http.httpClient.PutAsync("https://localhost:5001/Felhasznalok", _http.contentKrealas(Felhasznalo));
+                    eredmeny = Felhasznalo.Jog switch
+                    {
+                        < 4 => await _http.httpClient.PutAsync("https://localhost:5001/Felhasznalok", _http.contentKrealas(Felhasznalo)),
+                        4 => await _http.httpClient.PutAsync("https://localhost:5001/Felhasznalok/Admin", _http.contentKrealas(Felhasznalo)),
+                        _ => throw new NotImplementedException()
+                    };
 
                     if(eredmeny.IsSuccessStatusCode)
                     {

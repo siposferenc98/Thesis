@@ -15,7 +15,7 @@ namespace VizsgaremekMVVM.Models.Lists
 
         public async Task<bool> TetelekFrissit(string? parameter = null)
         {
-            var tetelcall = await _http.httpClient.GetAsync(_http.url + "Tetelek" + parameter);
+            var tetelcall = await _http.httpClient.GetAsync(_http.Url + _http.Endpointok["Tetelek"] + parameter);
             if (tetelcall.IsSuccessStatusCode)
             {
                 TetelLista = JsonSerializer.Deserialize<List<Tetel>>(await tetelcall.Content.ReadAsStringAsync())!;

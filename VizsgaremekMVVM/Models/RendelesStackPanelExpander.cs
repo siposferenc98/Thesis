@@ -41,11 +41,7 @@ namespace VizsgaremekMVVM.Models
             ex.Header = $"{r.Razon}. számú rendelés, {r.Ido:yyyy.M.d HH.mm}";
             ex.Tag = r;
             ex.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            ex.Expanded += Ex_Expanded;            
-            
-
-            
-
+            ex.Expanded += Ex_Expanded;
             g.Children.Add(ex);
             return g;
 

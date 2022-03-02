@@ -125,7 +125,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
                     Megjelent = true,
                 };
 
-                var vendegFoglalasHozzaadEredmeny = await _http.httpClient.PostAsync(_http.url + "Foglalasok", _http.contentKrealas(f));
+                var vendegFoglalasHozzaadEredmeny = await _http.httpClient.PostAsync(_http.Url + _http.Endpointok["Foglalasok"], _http.contentKrealas(f));
                 if(vendegFoglalasHozzaadEredmeny.IsSuccessStatusCode)
                 {
                     f = JsonSerializer.Deserialize<Foglala>(await vendegFoglalasHozzaadEredmeny.Content.ReadAsStringAsync())!;
@@ -151,7 +151,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
                     Asztal = KivalasztottAsztal,
                 };
             }
-            var rendelesHozzaadEredmeny = await _http.httpClient.PostAsync(_http.url+"Rendelesek",_http.contentKrealas(r));
+            var rendelesHozzaadEredmeny = await _http.httpClient.PostAsync(_http.Url+ _http.Endpointok["Rendelesek"],_http.contentKrealas(r));
             if (rendelesHozzaadEredmeny.IsSuccessStatusCode)
             {
                 r = JsonSerializer.Deserialize<Rendele>(await rendelesHozzaadEredmeny.Content.ReadAsStringAsync())!;
@@ -164,7 +164,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
 
         private async void RendelesTorles(object? o)
         {
-            var rendelesTorlesEredmeny = await _http.httpClient.DeleteAsync(_http.url + $"Rendelesek/{KivalasztottRendeles.Razon}");
+            var rendelesTorlesEredmeny = await _http.httpClient.DeleteAsync(_http.Url + _http.Endpointok["Rendelesek"]+$"/{KivalasztottRendeles.Razon}");
             if (rendelesTorlesEredmeny.IsSuccessStatusCode)
             {
                 Rendelesek.Remove(KivalasztottRendeles);
@@ -176,7 +176,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
         {
             KivalasztottRendeles.Etelstatus = 3;
             KivalasztottRendeles.Italstatus = 3;
-            var rendelesFizetesreVarEredmeny = await _http.httpClient.PutAsync(_http.url + "Rendelesek", _http.contentKrealas(KivalasztottRendeles));
+            var rendelesFizetesreVarEredmeny = await _http.httpClient.PutAsync(_http.Url + _http.Endpointok["Rendelesek"], _http.contentKrealas(KivalasztottRendeles));
             if (rendelesFizetesreVarEredmeny.IsSuccessStatusCode)
             {
                 Frissitesek();
@@ -186,7 +186,7 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
         {
             KivalasztottRendeles.Etelstatus = 4;
             KivalasztottRendeles.Italstatus = 4;
-            var rendelesFizetesreVarEredmeny = await _http.httpClient.PutAsync(_http.url + "Rendelesek", _http.contentKrealas(KivalasztottRendeles));
+            var rendelesFizetesreVarEredmeny = await _http.httpClient.PutAsync(_http.Url + _http.Endpointok["Rendelesek"], _http.contentKrealas(KivalasztottRendeles));
         }
         #endregion
 
