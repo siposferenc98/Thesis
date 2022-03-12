@@ -12,6 +12,7 @@ namespace VizsgaremekMVVM.ViewModels
 {
     internal class RegisztracioVM : INotifyPropertyChanged
     {
+        #region Properties
         public event EventHandler FelhasznaloModositvaVagyHozzaadva;
         private HttpClientClass _http { get; set; } = new();
         public Felhasznalo Felhasznalo { get; set; } = new();
@@ -19,7 +20,13 @@ namespace VizsgaremekMVVM.ViewModels
         public string JelszoEllenoriz { get; set; } = string.Empty;
         public string AblakSzoveg { get; set; } = "Regisztráció";
         public ICommand RegisztralasButton => new ButtonCE(Regisztralas,RegisztralasCE);
+        #endregion
 
+        /// <summary>
+        /// Regisztrációs ablak konstruktora, kapni fog egy felhasználót ami lehet null, és egy boolt ami eldönti hogy admint regisztrálunk e az ablakkal.
+        /// </summary>
+        /// <param name="f">Egy felhasználó amit módosítani szeretnénk vagy null ha sima regisztrálás.</param>
+        /// <param name="adminRegisztracio">True ha admint szeretnénk regisztrálni</param>
         public RegisztracioVM(Felhasznalo? f, bool adminRegisztracio)
         {
             if (f is not null)
@@ -37,12 +44,17 @@ namespace VizsgaremekMVVM.ViewModels
                 Felhasznalo.Jog = 4;
         }
 
+        /// <summary>
+        /// Regisztrálás funkció, amennyiben admint regisztrálunk a Felhasználók/Admin API endpointhoz kapcsolódik.
+        /// </summary>
+        /// <param name="o"></param>
+        /// <exception cref="NotImplementedException"></exception>
         private async void Regisztralas(object? o)
         {
             HttpResponseMessage eredmeny;
             if (Felhasznalo.Azon is not 0)
             {
-                eredmeny = await _http.httpClient.PutAsync("https://localhost:5001/Felhasznalok"+$"/{Felhasznalo.Azon}", _http.contentKrealas(Felhasznalo));
+                eredmeny = await _http.httpClient.PutAsync(_http.Url+$"{_http.Endpointok["Felhasznalok"]}/{Felhasznalo.Azon}", _http.contentKrealas(Felhasznalo));
                 if (eredmeny.IsSuccessStatusCode)
                 {
                     MessageBox.Show("A felhasználó módosítva lett!");

@@ -29,7 +29,7 @@
         <Style TargetType="Grid" x:Key="AsztalokGrid">
             <Style.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionButton}" >
-                    
+                    <Setter Property="Background" Value="Transparent"></Setter>
                 </Style>
             </Style.Resources>
         </Style>

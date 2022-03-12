@@ -13,12 +13,18 @@ namespace VizsgaremekMVVM.ViewModels
 {
     internal class JelszoValtoztatVM : INotifyPropertyChanged
     {
+        #region Properties
         private HttpClientClass _http = new();
         public string AktualisJelszo { get; set; } = string.Empty;
         public string UjJelszo { get; set; } = string.Empty;
         public string UjJelszoEllenoriz { get; set; } = string.Empty;
         public ICommand JelszoValtoztatButton => new ButtonCE(JelszoValtoztatas,JelszoValtoztatasCE);
+        #endregion
 
+        /// <summary>
+        /// Jelszó változtatásra funkció, leellenőrzi hogy a beírt aktuális jelszó egyezik-e a bejelentkezett felhasználó jelszavával,utána változtatható a jelszó.
+        /// </summary>
+        /// <param name="o"></param>
         private async void JelszoValtoztatas(object? o)
         {
             if (MD5Hashing.hashPW(AktualisJelszo) == AktivFelhasznalo.Aktiv.Pw)
@@ -47,6 +53,10 @@ namespace VizsgaremekMVVM.ViewModels
                 MessageBox.Show("Az aktuális jelszó hibás!");
             }
         }
+        /// <summary>
+        /// Jelszó változtatás gomb CanExecute funkciója, akkor lesz aktív a gomb ha minden mezőbe van valamit írva.
+        /// </summary>
+        /// <returns></returns>
         private bool JelszoValtoztatasCE()
         {
             if (AktualisJelszo.Length > 0 && UjJelszo.Length > 0 && UjJelszoEllenoriz.Length > 0)

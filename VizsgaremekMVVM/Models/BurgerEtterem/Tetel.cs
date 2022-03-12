@@ -143,9 +143,9 @@ namespace VizsgaremekMVVM.Models.BurgerEtterem
         {
             string etelstatus = "Folyamatban";
             string italstatus = "Folyamatban";
-            if (Etelstatus == 2)
+            if (Etelstatus >= 2)
                 etelstatus = "Kész!";
-            if (Italstatus == 2)
+            if (Italstatus >= 2)
                 italstatus = "Kész!";
             return $"Étel: {etelstatus}, Ital: {italstatus}";
         }

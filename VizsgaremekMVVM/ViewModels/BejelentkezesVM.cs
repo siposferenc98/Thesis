@@ -20,6 +20,8 @@ namespace VizsgaremekMVVM.ViewModels
         #endregion
 
         private HttpClientClass _http { get; set; } = new();
+
+        #region Properties
         public string Felhasznalo 
         { 
             get => _felhasznalo;
@@ -41,12 +43,17 @@ namespace VizsgaremekMVVM.ViewModels
 
         public ICommand BejelentkezesButton => new ButtonCE(Bejelentkezes, BejelentkezesCE);
         public ICommand RegisztracioButton => new Button(RegisztracioAblak);
+        #endregion
 
         public BejelentkezesVM()
         {
 
         }
 
+        /// <summary>
+        /// Megjeleníti az aktiv/bejelentkezett felhasználó joga alapján a megfelelő UI-t.
+        /// </summary>
+        /// <param name="window">A bejelentkezés ablak, amit bezárunk.</param>
         private void UIMegjelenit(object? window)
         {
             switch (AktivFelhasznalo.Aktiv.Jog)
@@ -77,6 +84,10 @@ namespace VizsgaremekMVVM.ViewModels
             Regisztracio regisztracio = new();
             regisztracio.ShowDialog();
         }
+        /// <summary>
+        /// Bejelentkezésre szolgáló funkció, POST-ot küld a Felhasznalok API endpointra, sikeres bejelentkezés esetén beállítja az aktuális felhasználót a visszakapott felhasználóra.
+        /// </summary>
+        /// <param name="o"></param>
         private async void Bejelentkezes(object? o)
         {
             Felhasznalo f = new() { Email = Felhasznalo , Pw = MD5Hashing.hashPW(Pw.ToString()!)};
@@ -103,6 +114,10 @@ namespace VizsgaremekMVVM.ViewModels
 
         }
 
+        /// <summary>
+        /// Bejelentkezés gomb CanExecute funkciója, akkor lesz aktív a gomb ha a felhasználó és jelszó mezőbe is van valami írva.
+        /// </summary>
+        /// <returns></returns>
         private bool BejelentkezesCE()
         {
             if (Felhasznalo.Length > 0 && Pw.Length > 0)
@@ -110,6 +125,7 @@ namespace VizsgaremekMVVM.ViewModels
             return false;
         }
 
+        //PropertyChanged eventhandler, eventhandler raise funkció, akárhányszor változik valamilyen adat ebben a viewmodelben, ezt az eventet kell raiselni, hogy szóljon a View-nak(Bejelentkezés ablakunknak) hogy frissíteni kell az UI-t.
         public event PropertyChangedEventHandler? PropertyChanged;
         public void RaisePropertyChanged([CallerMemberName]string? propertyName = null)
         {

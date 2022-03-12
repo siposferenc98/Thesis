@@ -48,6 +48,6 @@
             <TextBox Text="{Binding Leiras, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <CheckBox Margin="5px" HorizontalAlignment="Center" Content="Aktív" IsChecked="{Binding Aktiv}"></CheckBox>
         </StackPanel>
-        <Button Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding TermekFrissitButton}">Termék módosítása</Button>
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Content="{Binding GombSzoveg}" Command="{Binding TermekFrissitButton}"></Button>
     </Grid>
 </Window>

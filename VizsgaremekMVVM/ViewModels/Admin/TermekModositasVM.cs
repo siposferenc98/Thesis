@@ -73,6 +73,8 @@ namespace VizsgaremekMVVM.ViewModels.Admin
             }
         }
 
+        public string GombSzoveg { get; set; } = "Termék hozzáadása";
+
         public ICommand TermekFrissitButton => new ButtonCE(TermekFrissit, TermekFrissitCE);
 
         public TermekModositasVM(ITermek? termek = null)
@@ -80,6 +82,7 @@ namespace VizsgaremekMVVM.ViewModels.Admin
             if (termek is not null)
             {
                 AdatokBeallit(termek);
+                GombSzoveg = "Termék módosítása";
             }
         }
         private void AdatokBeallit(ITermek termek)
