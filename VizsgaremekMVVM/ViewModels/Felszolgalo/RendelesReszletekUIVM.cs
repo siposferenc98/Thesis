@@ -40,7 +40,6 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
                 _kivalasztottTetel = value;
                 if (value != null)
                 {
-                    //TODO MÁS MEGOLDÁST KITALÁLNI RÁ (de működik így is)
                     TetelAdatok.Burger = Termekek.Burgerek.FirstOrDefault(x=>x.Bazon == KivalasztottTetel.Bazon);
                     TetelAdatok.Ital = Termekek.Italok.FirstOrDefault(x=>x.Iazon == KivalasztottTetel.Iazon);
                     TetelAdatok.Koret = Termekek.Koretek.FirstOrDefault(x => x.Kazon == KivalasztottTetel.Kazon);
@@ -60,6 +59,10 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
         public ICommand TetelTorleseButton => new Button(TetelTorlese);
         public ICommand TetelFrissiteseButton => new Button(TetelFrissitese);
 
+        /// <summary>
+        /// Kap egy rendelést aminek a részleteit fogja megjeleníteni.
+        /// </summary>
+        /// <param name="r"></param>
         public RendelesReszletekUIVM(Rendele r)
         {
             TermekekFrissitese();

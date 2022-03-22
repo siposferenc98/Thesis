@@ -26,6 +26,8 @@ namespace VizsgaremekMVVM.ViewModels.Pultos
             Task.Run(() => ListakFrissitAsync());
         }
 
+        //A teljes logika ugyan az mint a SzakacsVM-ben találtakkal.
+
         private async void ListakFrissitAsync()
         {
             while (true)

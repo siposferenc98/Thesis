@@ -26,6 +26,9 @@ namespace VizsgaremekMVVM.ViewModels.Szakacs
             Task.Run(() => ListakFrissitAsync());
         }
 
+        /// <summary>
+        /// 5 mp-enként frissíti a tételek listát.
+        /// </summary>
         private async void ListakFrissitAsync()
         {
             while (true)
@@ -47,6 +50,9 @@ namespace VizsgaremekMVVM.ViewModels.Szakacs
             }
         }
 
+        /// <summary>
+        /// Ha a tétel nincs benne a meglévő listába akkor hozzáadja, ha benne van akkor frissíti, utána meghívjuk a törlés funkciót.
+        /// </summary>
         private void TetelekListaFrissit()
         {
             _tetelek.TetelLista.ForEach(t =>
@@ -65,6 +71,9 @@ namespace VizsgaremekMVVM.ViewModels.Szakacs
             TetelekTorlese();
         }
 
+        /// <summary>
+        /// Ha a meglévő tételek listánkba van olyan tétel ami nincs benne a frisssen lekérdezett listába, azt belerakjuk egy törlésre szánt listába, + hozzáadjuk az összes 4es statusszal (fizetett) rendelkező tételt is. Ha az éppen kiválasztott tételünket törölni kell, akkor az éppen kiválasztott tételünket is null-ra rakjuk.
+        /// </summary>
         private void TetelekTorlese()
         {
             List<Tetel> torlesre = Tetelek.Where(x => !_tetelek.TetelLista.Any(o => x.Tazon == o.Tazon)).ToList();
@@ -75,6 +84,10 @@ namespace VizsgaremekMVVM.ViewModels.Szakacs
             torlesre.ForEach(x => Tetelek.Remove(x));
         }
 
+        /// <summary>
+        /// A kiválasztott tétel ételstátuszát átállitja 2re (kész).
+        /// </summary>
+        /// <param name="o"></param>
         private async void TetelKesz(object? o)
         {
             KivalasztottTetel.Etelstatus = 2;

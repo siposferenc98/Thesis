@@ -111,6 +111,10 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
 
         #region Api
 
+        /// <summary>
+        /// Rendelés felvétele, ha betérővendég be van pipálva akkor egy új foglalást is hozzáadunk neki 1 személyre, beküldjük az API-nak, ha sikeres akkor visszakapjuk a létrehozott foglalást(a DB által adott azonosítóval), melyre tudunk mostmár új rendelést is felvenni (r.fazon = f.fazon) , ha nem betérő vendég akkor a kiválaszott foglalásunk fazonjához adjuk hozzá a rendelést.
+        /// </summary>
+        /// <param name="o"></param>
         private async void RendelesHozzaad(object? o)
         {
             Rendele r;
@@ -162,6 +166,10 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
 
         }
 
+        /// <summary>
+        /// Törli a kiválasztott rendelést.
+        /// </summary>
+        /// <param name="o"></param>
         private async void RendelesTorles(object? o)
         {
             var rendelesTorlesEredmeny = await _http.httpClient.DeleteAsync(_http.Url + _http.Endpointok["Rendelesek"]+$"/{KivalasztottRendeles.Razon}");
@@ -172,6 +180,11 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
                 CommandManager.InvalidateRequerySuggested();
             }
         }
+
+        /// <summary>
+        /// A kiválasztott rendelés statusait 3-3ra állítja(fizetésre vár).
+        /// </summary>
+        /// <param name="o"></param>
         private async void RendelesFizetesreVar(object? o)
         {
             KivalasztottRendeles.Etelstatus = 3;
@@ -182,6 +195,11 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
                 Frissitesek();
             }
         }
+
+        /// <summary>
+        /// A kiválasztott rendelés statusait 4-4re állítja(fizetve).
+        /// </summary>
+        /// <param name="o"></param>
         private async void RendelesFizetve(object? o)
         {
             KivalasztottRendeles.Etelstatus = 4;
@@ -191,6 +209,9 @@ namespace VizsgaremekMVVM.ViewModels.Felszolgalo
         #endregion
 
         #region Frissitesek
+
+        // Minden frissítési logika megegyezik a SzakacsVM
+
         private void RendelesekFrissit()
         {
             _rendelesek.RendelesekLista.ForEach(x =>
